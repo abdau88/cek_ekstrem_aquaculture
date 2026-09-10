@@ -1,0 +1,77 @@
+
+========================================================================
+LANGKAH 1 — KUALITAS DATA
+========================================================================
+  Rentang waktu      : 2021-01-01 00:00:00  s/d  2026-09-09 01:45:00
+  Durasi             : 2,077 hari (~5.7 tahun)
+  Titik pada grid    : 199,400
+  Titik terisi       : 187,437  (94.0%)
+  Jumlah lubang      : 43
+  Lubang terpanjang  : 1,681.5 jam
+  Lubang > 24 jam    : 7
+
+========================================================================
+LANGKAH 2 — SEBARAN NILAI DO
+========================================================================
+  persentil   0.1 :   1.10 mg/L
+  persentil   0.5 :   1.50 mg/L
+  persentil   1.0 :   1.60 mg/L
+  persentil   5.0 :   2.30 mg/L
+  persentil  25.0 :   4.70 mg/L
+  persentil  50.0 :   6.00 mg/L
+  persentil  75.0 :   7.50 mg/L
+  persentil  99.0 :   9.70 mg/L
+
+========================================================================
+LANGKAH 3 — JUMLAH EPISODE EKSTREM MENURUT EMPAT DEFINISI
+========================================================================
+                      definisi  n_episode  per_tahun  durasi_median_jam  durasi_maks_jam  nilai_min
+       D1 ambang<3.0 & >=60mnt       1118     196.60               4.00             7.00       0.10
+   D2 laju turun >0.5 mg/L/jam       4554     800.81               2.25            19.00       0.10
+D3 persentil 1.0% (=1.60 mg/L)        157      27.61               2.25             4.25       0.10
+  D4 residual kontekstual 1.0%        240      42.20               1.75             4.50       0.10
+
+  VONIS KELAYAKAN:
+    D1 ambang<3.0 & >=60mnt                      n=1118  MEMADAI  - cukup untuk metrik terkondisi & uji signifikansi
+    D2 laju turun >0.5 mg/L/jam                  n=4554  MEMADAI  - cukup untuk metrik terkondisi & uji signifikansi
+    D3 persentil 1.0% (=1.60 mg/L)               n= 157  MEMADAI  - cukup untuk metrik terkondisi & uji signifikansi
+    D4 residual kontekstual 1.0%                 n= 240  MEMADAI  - cukup untuk metrik terkondisi & uji signifikansi
+
+========================================================================
+LANGKAH 4 — SENSITIVITAS TERHADAP PILIHAN AMBANG (D1)
+========================================================================
+Ini yang mematikan pertanyaan 'kenapa ambangnya segitu?' di ujian.
+
+Jumlah episode menurut ambang (baris) dan durasi minimum (kolom):
+durasi_min_menit   30    60    120   240
+ambang_mgL                              
+2.0                501   445   307    79
+2.5                918   844   708   309
+3.0               1189  1118   999   621
+3.5               1450  1387  1256   925
+4.0               1722  1646  1501  1184
+
+========================================================================
+LANGKAH 5 — KEKUATAN SIKLUS HARIAN
+========================================================================
+  DO rata-rata tertinggi : 6.73 mg/L (jam 16)
+  DO rata-rata terendah  : 5.44 mg/L (jam 03)
+  Amplitudo diurnal      : 1.29 mg/L
+  Simpangan baku total   : 2.00 mg/L
+  Rasio amplitudo/SD     : 0.65
+
+  Siklus harian KUAT. Ini bukti kuantitatif bahwa ambang tetap
+  akan salah menilai: nilai yang sama bermakna berbeda per jam.
+  Pakai angka ini di Bab I sebagai justifikasi definisi kontekstual.
+
+========================================================================
+LANGKAH 6 — APAKAH KEEMPAT DEFINISI MENUNJUK KEJADIAN YANG SAMA?
+========================================================================
+  D1: 1118 episode, jam mulai paling sering = 01:00 (94 kali)
+  D2: 4554 episode, jam mulai paling sering = 16:00 (277 kali)
+  D3:  157 episode, jam mulai paling sering = 06:00 (25 kali)
+  D4:  240 episode, jam mulai paling sering = 10:00 (26 kali)
+
+========================================================================
+SELESAI. Hasil ditulis ke 'hasil\288653'.
+========================================================================

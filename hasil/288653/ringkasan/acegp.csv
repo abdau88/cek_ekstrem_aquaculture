@@ -1,0 +1,5 @@
+dataset,label,definisi,n_episode,per_tahun,durasi_median_jam,durasi_maks_jam,nilai_min
+288653,acegp,D1 ambang<3.0 & >=60mnt,17,2.9894082246740217,9.0,87.5,1.8
+288653,acegp,D2 laju turun >0.5 mg/L/jam,629,110.6081043129388,1.0,4.75,1.8
+288653,acegp,D3 persentil 1.0% (=3.40 mg/L),10,1.7584754262788365,17.75,242.75,1.8
+288653,acegp,D4 residual kontekstual 1.0%,142,24.970351053159476,2.125,34.25,1.8

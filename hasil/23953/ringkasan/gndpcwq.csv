@@ -1,0 +1,5 @@
+dataset,label,definisi,n_episode,per_tahun,durasi_median_jam,durasi_maks_jam,nilai_min
+23953,gndpcwq,D1 ambang<3.0 & >=60mnt,7,1.0558765201605445,2.0,8.25,1.7
+23953,gndpcwq,D2 laju turun >0.5 mg/L/jam,2260,340.8972765089758,1.25,14.25,1.7
+23953,gndpcwq,D3 persentil 1.0% (=4.70 mg/L),88,13.273876253446845,3.0,18.75,1.7
+23953,gndpcwq,D4 residual kontekstual 1.0%,92,13.877234264967155,3.25,19.0,1.7

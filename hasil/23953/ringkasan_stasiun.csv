@@ -1,0 +1,5 @@
+dataset,stasiun,n_sumber,mulai,selesai,tahun,titik_grid,DO_terisi,kelengkapan_%,dibuang_QAQC,DO_min,DO_p1,DO_median,jam_dibawah_3,berkas
+23953,gndbcwq,1,2020-01-01,2026-08-25,6.65,233123,207900,89.2,14729,0.1,2.6,6.1,1014.2,hasil\23953\bersih\gndbcwq.csv
+23953,gndbhwq,1,2020-01-01,2026-09-01,6.67,233856,211186,90.3,20258,0.0,0.0,4.0,18731.8,hasil\23953\bersih\gndbhwq.csv
+23953,gndblwq,1,2020-01-01,2026-09-01,6.67,233856,202984,86.8,27384,0.0,3.6,7.1,181.5,hasil\23953\bersih\gndblwq.csv
+23953,gndpcwq,1,2020-01-01,2026-08-18,6.63,232460,139704,60.1,23000,1.7,4.7,7.7,28.5,hasil\23953\bersih\gndpcwq.csv

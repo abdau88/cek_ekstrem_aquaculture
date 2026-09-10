@@ -1,0 +1,20 @@
+# Konfigurasi lokal Claude Code, tidak dibagikan
+.claude/
+
+# Data mentah CDMO. Sengaja tidak masuk repo:
+#   - ukurannya 382 MB
+#   - data_mentah/23953/23953.csv sebesar 130 MB, melewati batas keras
+#     GitHub sebesar 100 MB per berkas
+# Unduh ulang dari https://cdmo.baruch.sc.edu/ lalu taruh di data_mentah/,
+# lihat README.md bagian "Menambah dataset baru".
+data_mentah/
+
+# Deret waktu bersih hasil olahan, 123 MB. Sepenuhnya dapat dibangun ulang
+# dari data mentah dengan: python jalankan_semua.py
+hasil/*/bersih/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/

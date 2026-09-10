@@ -1,0 +1,5 @@
+dataset,label,definisi,n_episode,per_tahun,durasi_median_jam,durasi_maks_jam,nilai_min
+288653,aceei,D1 ambang<3.0 & >=60mnt,91,16.00212637913741,3.0,5.5,1.4
+288653,aceei,D2 laju turun >0.5 mg/L/jam,2963,521.0362688064192,1.5,6.0,1.4
+288653,aceei,D3 persentil 1.0% (=3.10 mg/L),137,24.09111334002006,2.75,6.0,1.4
+288653,aceei,D4 residual kontekstual 1.0%,151,26.55297893681043,2.75,6.0,1.4
