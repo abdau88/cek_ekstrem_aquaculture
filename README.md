@@ -56,6 +56,7 @@ hasil/perbandingan_konteks.csv  korelasi DO terhadap suhu, salinitas, kedalaman
 hasil/perbandingan_bulanan.csv  DO rata-rata dan jumlah episode D1 per bulan
 hasil/perbandingan_diurnal.csv        dekomposisi ragam: musiman, harian, residual
 hasil/perbandingan_diurnal_musim.csv  amplitudo harian per musim dan episode D1
+hasil/perbandingan_cakupan.csv        persen waktu valid di dalam episode D1/D3/D4, tahunan, JJA, DJF
 ```
 
 Empat berkas `perbandingan_*.csv` di akar `hasil/` adalah intisari seluruh
@@ -73,12 +74,14 @@ Folder `hasil/` seluruhnya bisa dihapus dan dibangun ulang. Folder
 | `siapkan_data_nerrs.py` | deteksi tata letak, gabung, terapkan flag QAQC |
 | `hitung_episode_ekstrem.py` | enam langkah analisis untuk satu deret waktu |
 | `profil_diurnal.py` | dekomposisi ragam dan amplitudo harian per musim |
+| `cakupan_waktu.py` | persen waktu valid yang berada di dalam episode ekstrem |
 
-Ketiga yang terakhir bisa dijalankan sendiri, lihat docstring masing-masing.
-`profil_diurnal.py` dijalankan terpisah setelah pipeline utama selesai:
+Keempat yang terakhir bisa dijalankan sendiri, lihat docstring masing-masing.
+`profil_diurnal.py` dan `cakupan_waktu.py` dijalankan terpisah setelah pipeline utama selesai:
 
 ```
 python profil_diurnal.py hasil
+python cakupan_waktu.py hasil
 ```
 
 ## Kenapa penyaringan QAQC wajib
