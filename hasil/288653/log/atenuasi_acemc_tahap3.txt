@@ -1,0 +1,220 @@
+>> Seed: 42
+
+============================================================================================
+TAHAP 1 — DATA DAN JENDELA  (288653/acemc)
+============================================================================================
+  Rentang grid        : 2021-01-01 00:00:00  s/d  2026-08-27 12:45:00
+  Titik grid          : 198,196  (DO terisi 181,128, 91.4%)
+  Episode D1          : 291
+  Jendela             : input 288 + horizon 96 langkah, stride 1
+
+PEMBAGIAN KRONOLOGIS 70/10/20
+  bagian               mulai             selesai  titik_grid
+   latih 2021-01-01 00:00:00 2024-12-16 04:00:00      138737
+validasi 2024-12-16 04:15:00 2025-07-10 15:00:00       19820
+     uji 2025-07-10 15:15:00 2026-08-27 12:45:00       39639
+
+JENDELA PER BAGIAN
+  bagian  kandidat  valid  buang_NaN  persen_buang  buang_input_saja  buang_target_saja  buang_keduanya
+   latih    138354 116292      22062          15.9              4798               1536           15728
+validasi     19437  18278       1159           6.0               864                288               7
+     uji     39256  37322       1934           4.9               288                 96            1550
+
+JENDELA EKSTREM (horizon beririsan dengan episode D1)
+  bagian  valid  jendela_ekstrem  persen_ekstrem  episode_D1  episode_tersentuh  episode_tak_terwakili  jendela_multi_episode
+   latih 116292            13959            12.0         190                198                      8                   6743
+validasi  18278              851             4.7          13                 13                      0                    455
+     uji  37322             4235            11.3          53                 66                     13                   2168
+  episode_D1 = episode yang memiliki minimal satu jendela (n pada metrik)
+
+  13 dari 66 episode D1 yang tersentuh horizon uji TIDAK TERWAKILI:
+  setiap horizon yang menyentuhnya juga menyentuh episode lain yang lebih
+  dalam, dan jendela ditetapkan ke episode terdalam itu. Satu jendela tidak
+  dihitung di beberapa episode, supaya n episode tetap saling lepas.
+
+CAKUPAN MUSIM PANAS (Jun-Ags) DI BAGIAN UJI
+ tahun       tercakup_dari     tercakup_sampai  penuh  persen_kalender  persen_DO_terisi                                                       diterima
+  2025 2025-07-10 15:15:00 2025-08-31 23:45:00  False             56.9              43.2                                                               
+  2026 2026-06-01 00:00:00 2026-08-27 12:45:00  False             95.2              95.2 tercakup 95,2%, data acemc berakhir 27 Ags 2026; keputusan (a)
+
+  PENYIMPANGAN: tidak ada musim panas penuh di bagian uji. Diterima atas
+  keputusan eksplisit, lihat kolom 'diterima' dan README.
+
+STATUS QAQC PER TAHUN (berkas mentah)
+       final_%  provisional_plus_%  provisional_%  flag_-3_%  flag_-2_%  flag_0_%  flag_1_%
+tahun                                                                                      
+2021     100.0                 0.0            0.0       0.01      11.77     78.58      9.64
+2022     100.0                 0.0            0.0       4.23      12.45     83.32      0.00
+2023     100.0                 0.0            0.0       0.02       3.23     96.76      0.00
+2024     100.0                 0.0            0.0       0.00       2.90     97.10      0.00
+2025       0.0               100.0            0.0       0.00       4.45     95.55      0.00
+2026       0.0                73.1           26.9       0.00       0.00    100.00      0.00
+  final = Historical=1, provisional_plus = ProvisionalPlus=1, provisional = ProvisionalPlus=0
+
+  Periode provisional (belum QAQC sekunder): 2026-06-24 09:00:00  s/d  2026-08-27 12:45:00
+  Nilai DO bukan <0> di periode itu: 0 dari 6,160
+
+  Episode D1 dan jendela ekstrem di bagian uji menurut status QAQC:
+                    episode_D1  jam_episode  jendela_ekstrem
+  status                                                    
+  final                      0         0.00                0
+  provisional_plus          17        30.50             1444
+  provisional               36       126.75             2791
+
+  BATASAN: 68% episode D1 uji berasal dari data yang belum melewati QAQC sekunder.
+  Episode itu bisa memuat pembacaan rendah akibat alat yang pada data
+  final akan ditolak. Eksperimen tetap dilanjutkan.
+
+============================================================================================
+TAHAP 2 — BASELINE: PERSISTENCE DAN SEASONAL NAIVE (bagian uji)
+============================================================================================
+
+  n jendela uji: 37,322 (ekstrem 4,235, normal 33,087); n episode ekstrem: 53
+
+GALAT (mg/L)
+                rmse_semua  mae_semua  rmse_ekstrem  mae_ekstrem  rmse_normal  mae_normal
+model                                                                                    
+persistence          0.635      0.462         0.824        0.645        0.607       0.439
+seasonal_naive       0.344      0.252         0.414        0.313        0.334       0.245
+
+RASIO ATENUASI (1 = amplitudo sesuai, < 1 = meratakan)
+                rasio_atenuasi_ekstrem  rasio_atenuasi_ekstrem_tingkat_jendela  rasio_atenuasi_normal_tingkat_jendela
+model                                                                                                                
+persistence                      0.000                                   0.000                                  0.000
+seasonal_naive                   1.037                                   1.000                                  1.000
+  rasio_atenuasi_ekstrem = median lintas episode dari median per episode
+
+GALAT AMPLITUDO PUNCAK (mg/L, positif = tidak turun sedalam aktual)
+                galat_puncak_ekstrem  galat_puncak_ekstrem_tingkat_jendela
+model                                                                     
+persistence                    1.400                                 1.300
+seasonal_naive                 0.000                                 0.000
+
+KONTRIBUSI KUADRAT GALAT
+                persen_SSE_dari_ekstrem  persen_jendela_ekstrem
+model                                                          
+persistence                        19.1                    11.3
+seasonal_naive                     16.4                    11.3
+
+  n episode = 53. 13 episode lain tersentuh horizon uji tetapi tidak terwakili,
+  karena berdekatan dengan episode yang lebih dalam.
+
+--------------------------------------------------------------------------------------------
+ANALISIS SEKUNDER (ditetapkan sebelum hasil DLinear): RINCIAN STATUS QAQC
+--------------------------------------------------------------------------------------------
+         model            status  n_jendela  n_jendela_ekstrem  n_episode_ekstrem  rmse_semua  rmse_ekstrem  rasio_atenuasi_ekstrem
+   persistence final (2021-2024)          0                  0                  0         NaN           NaN                     NaN
+   persistence ProvisionalPlus=1      31257               1444                 17       0.576         0.742                   0.000
+   persistence ProvisionalPlus=0       6065               2791                 36       0.880         0.863                   0.000
+seasonal_naive final (2021-2024)          0                  0                  0         NaN           NaN                     NaN
+seasonal_naive ProvisionalPlus=1      31257               1444                 17       0.323         0.391                   1.042
+seasonal_naive ProvisionalPlus=0       6065               2791                 36       0.439         0.426                   1.019
+  Jendela ekstrem dikelompokkan menurut status episode pemiliknya, jendela
+  normal menurut langkah pertama horizon. 95 jendela horizonnya melintasi batas status.
+  PERINGATAN: kelompok final (2021-2024) KOSONG di bagian uji (0 jendela, 0 episode), tidak ada metrik.
+
+  Rasio atenuasi persistence bernilai 0 menurut konstruksinya (prediksi
+  datar), bukan temuan. Seasonal naive menyalin amplitudo hari sebelumnya.
+
+============================================================================================
+TAHAP 3 — DLINEAR, LOSS MSE (seed 42)
+============================================================================================
+
+  torch 2.14.0+cpu, CPU, 4 thread
+  Normalisasi dari bagian latih: rerata 5.8911, sb 1.7943 mg/L
+  Jendela latih 116,292, validasi 18,278; batch 32, lr awal 0.005, maks 10 epoch, kesabaran 3, kernel 25
+
+  epoch        lr  MSE_latih    MSE_val   detik
+      1  0.005000    0.02833    0.03231     3.9
+      2  0.002500    0.02033    0.02983     3.7
+      3  0.001250    0.01789    0.02068     3.8
+      4  0.000625    0.01670    0.01491     4.0
+      5  0.000313    0.01606    0.01304     4.4
+      6  0.000156    0.01567    0.01216     4.7
+      7  0.000078    0.01548    0.01226     4.7
+      8  0.000039    0.01537    0.01194     4.7
+      9  0.000020    0.01531    0.01193     4.9
+     10  0.000010    0.01528    0.01191     4.7
+
+  Waktu latih: 43.4 detik, 10 epoch, bobot terbaik dari epoch 10 (MSE val ternormalisasi 0.01191)
+
+METRIK BAGIAN UJI, KETIGA MODEL
+
+  n jendela uji: 37,322 (ekstrem 4,235, normal 33,087); n episode ekstrem: 53
+
+GALAT (mg/L)
+                rmse_semua  mae_semua  rmse_ekstrem  mae_ekstrem  rmse_normal  mae_normal
+model                                                                                    
+persistence          0.635      0.462         0.824        0.645        0.607       0.439
+seasonal_naive       0.344      0.252         0.414        0.313        0.334       0.245
+dlinear              0.205      0.148         0.235        0.176        0.200       0.145
+
+RASIO ATENUASI (1 = amplitudo sesuai, < 1 = meratakan)
+                rasio_atenuasi_ekstrem  rasio_atenuasi_ekstrem_tingkat_jendela  rasio_atenuasi_normal_tingkat_jendela
+model                                                                                                                
+persistence                      0.000                                   0.000                                  0.000
+seasonal_naive                   1.037                                   1.000                                  1.000
+dlinear                          0.908                                   0.891                                  0.845
+  rasio_atenuasi_ekstrem = median lintas episode dari median per episode
+
+GALAT AMPLITUDO PUNCAK (mg/L, positif = tidak turun sedalam aktual)
+                galat_puncak_ekstrem  galat_puncak_ekstrem_tingkat_jendela
+model                                                                     
+persistence                    1.400                                 1.300
+seasonal_naive                 0.000                                 0.000
+dlinear                        0.142                                 0.154
+
+KONTRIBUSI KUADRAT GALAT
+                persen_SSE_dari_ekstrem  persen_jendela_ekstrem
+model                                                          
+persistence                        19.1                    11.3
+seasonal_naive                     16.4                    11.3
+dlinear                            15.0                    11.3
+
+  n episode = 53. 13 episode lain tersentuh horizon uji tetapi tidak terwakili,
+  karena berdekatan dengan episode yang lebih dalam.
+
+--------------------------------------------------------------------------------------------
+ANALISIS SEKUNDER (ditetapkan sebelum hasil DLinear): RINCIAN STATUS QAQC
+--------------------------------------------------------------------------------------------
+         model            status  n_jendela  n_jendela_ekstrem  n_episode_ekstrem  rmse_semua  rmse_ekstrem  rasio_atenuasi_ekstrem
+   persistence final (2021-2024)          0                  0                  0         NaN           NaN                     NaN
+   persistence ProvisionalPlus=1      31257               1444                 17       0.576         0.742                   0.000
+   persistence ProvisionalPlus=0       6065               2791                 36       0.880         0.863                   0.000
+seasonal_naive final (2021-2024)          0                  0                  0         NaN           NaN                     NaN
+seasonal_naive ProvisionalPlus=1      31257               1444                 17       0.323         0.391                   1.042
+seasonal_naive ProvisionalPlus=0       6065               2791                 36       0.439         0.426                   1.019
+       dlinear final (2021-2024)          0                  0                  0         NaN           NaN                     NaN
+       dlinear ProvisionalPlus=1      31257               1444                 17       0.194         0.216                   0.880
+       dlinear ProvisionalPlus=0       6065               2791                 36       0.254         0.245                   0.915
+  Jendela ekstrem dikelompokkan menurut status episode pemiliknya, jendela
+  normal menurut langkah pertama horizon. 95 jendela horizonnya melintasi batas status.
+  PERINGATAN: kelompok final (2021-2024) KOSONG di bagian uji (0 jendela, 0 episode), tidak ada metrik.
+
+--------------------------------------------------------------------------------------------
+DLINEAR TERHADAP KEDUA BASELINE
+--------------------------------------------------------------------------------------------
+  RMSE semua   : DLinear 0.205 vs persistence     0.635  -> DLinear MENANG (-67.8%)
+  RMSE semua   : DLinear 0.205 vs seasonal naive  0.344  -> DLinear MENANG (-40.6%)
+  RMSE ekstrem : DLinear 0.235 vs persistence     0.824  -> DLinear MENANG (-71.4%)
+  RMSE ekstrem : DLinear 0.235 vs seasonal naive  0.414  -> DLinear MENANG (-43.2%)
+  RMSE normal  : DLinear 0.200 vs persistence     0.607  -> DLinear MENANG (-67.0%)
+  RMSE normal  : DLinear 0.200 vs seasonal naive  0.334  -> DLinear MENANG (-40.1%)
+  Rasio atenuasi ekstrem (episode): DLinear 0.908 vs seasonal naive 1.037
+  Galat puncak ekstrem (episode)  : DLinear +0.14 vs seasonal naive +0.00 mg/L
+
+  TEMUAN UTAMA: DLinear menurunkan RMSE keseluruhan di bawah seasonal
+  naive, TETAPI rasio atenuasinya pada episode ekstrem lebih rendah.
+  Model menurunkan galat rata-rata sambil membuang informasi amplitudo
+  yang sudah tersedia di data (seasonal naive cukup menyalin hari kemarin).
+
+  PEMBANDING UNTUK MEMBACA TEMUAN DI ATAS:
+  Rasio atenuasi DLinear: ekstrem 0.908 (episode), 0.891 (jendela); normal 0.845 (jendela)
+  -> DLinear meratakan jendela normal SAMA ATAU LEBIH kuat daripada jendela
+     ekstrem. Perataan tidak khusus pada kejadian ekstrem.
+  RMSE ekstrem / RMSE normal persistence    : 1.36   % SSE dari ekstrem: 19.1
+  RMSE ekstrem / RMSE normal seasonal naive : 1.24   % SSE dari ekstrem: 16.4
+  RMSE ekstrem / RMSE normal DLinear        : 1.17   % SSE dari ekstrem: 15.0
+  RMSE ekstrem terendah dari ketiga model: dlinear
+
+  Jendela per bagian: latih 116,292, validasi 18,278, uji 37,322

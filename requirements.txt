@@ -1,0 +1,7 @@
+# Versi yang terpasang dan teruji di Python 3.10.6 (Windows).
+# PyTorch versi CPU dipasang dari indeks resmi PyTorch:
+#   python -m pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+numpy==2.2.6
+pandas==2.3.3
+torch==2.14.0+cpu
+matplotlib==3.10.9
